@@ -1,0 +1,26 @@
+.footer{
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    margin:5px 0;
+    padding:0 10px
+}
+.footer div{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.footer div input{
+    height: 15px;
+    width:15px;
+    margin-right:10px
+}
+.footer button{
+    height: 35px;
+    width:120px;
+    background:salmon;
+    border:rgb(250, 98, 81) 3px solid;
+    border-radius: 5px;
+}
