@@ -1,10 +1,20 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import './index.css'
 
 export default class Item extends Component {
     state={
         isActive:false
     }
+
+    static propTypes={
+        isDelete:PropTypes.func.isRequired,
+        isSelected:PropTypes.func.isRequired,
+        id:PropTypes.string.isRequired,
+        todo:PropTypes.string.isRequired,
+        done:PropTypes.bool.isRequired
+    }
+
     // 处理鼠标移入或移出
     handleMouseChange=(flag)=>{
         return ()=>{
@@ -20,6 +30,13 @@ export default class Item extends Component {
             this.props.isSelected(id,event.target.checked)
         }
     }
+    // 删除的回调
+    handleDelete=(id)=>{
+        if(window.confirm('确定删除吗')){
+            this.props.isDelete(id)
+        }
+    }
+
     render() {
         const {id,todo,done}=this.props
         const {isActive} = this.state
@@ -30,7 +47,7 @@ export default class Item extends Component {
                         <input type="checkbox" checked={done} onChange={this.handleChange(id)}/>
                         <span>{todo}</span>
                     </div>
-                    <button style={{display:isActive? 'block':'none'}}>删除</button>
+                    <button onClick={()=>this.handleDelete(id)} style={{display:isActive? 'block':'none'}}>删除</button>
                 </li>
             </label>
         )

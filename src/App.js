@@ -5,6 +5,9 @@ import Footer from './components/Footer'
 import React, { Component } from 'react'
 
 export default class App extends Component {
+  // 状态在哪里，操作状态的方法就在哪里
+
+
   state={
     todos:[
       {id:'001',todo:'吃饭',done:true},
@@ -32,6 +35,19 @@ export default class App extends Component {
       todos:newToDos
     })
   }
+  // 处理单条删除
+  isDelete=(id)=>{
+    const {todos} = this.state
+    let newTodos=[]
+    todos.forEach((item)=>{
+      if(item.id!==id){
+        newTodos.push(item)
+      }
+    })
+    this.setState({
+      todos:newTodos
+    })
+  }
   // 处理全选或全不选
   handleAllChecked=(done)=>{
     const {todos} = this.state
@@ -43,15 +59,31 @@ export default class App extends Component {
       todos:newToDos
     })
   }
+
+  // 清理已完成
+  clearDone=()=>{
+    const {todos} = this.state
+    let newTodos=[]
+    todos.forEach((item)=>{
+      if(!item.done){
+        newTodos.push(item)
+      }
+    })
+    if(window.confirm('确定清除已完成的任务？')){
+      this.setState({
+        todos:newTodos
+      })
+    }
+  }
+
   render() {
-    console.log('11111')
     const {todos} = this.state
     return (
       <div className="app">
         <div className='toDoListBox'>
           <Header addTodos={this.addTodos}/>
-          <List todos={todos} isSelected={this.isSelected}/>
-          <Footer todos={todos} handleAllChecked={this.handleAllChecked}/>
+          <List todos={todos} isSelected={this.isSelected} isDelete={this.isDelete}/>
+          <Footer todos={todos} handleAllChecked={this.handleAllChecked} clearDone={this.clearDone}/>
         </div>
       </div>
     );
